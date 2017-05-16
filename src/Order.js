@@ -5,7 +5,7 @@
 
   }
 
-  Order.prototype.addItem = function () {
+  Order.prototype.addItem = function (itemdetails) {
 
   };
 
