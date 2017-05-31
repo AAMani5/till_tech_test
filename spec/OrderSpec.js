@@ -36,10 +36,11 @@ describe("Order", function(){
     expect(janeorder.totalBeforeTax()).toEqual(totalBeforeTax);
   });
 
-  xit("#totalAfterTax", function(){
+  it("#totalAfterTax", function(){
     janeorder.addItem(firstItem);
     var totalBeforeTax = cafedetails['prices'][0][firstItem['name']] * firstItem['quantity'];
-    expect(janeorder.totalAfterTax()).toEqual(1.0864 * totalBeforeTax);
+    var totalAfterTax = Math.round(totalBeforeTax * 108.64)/100;
+    expect(janeorder.totalAfterTax()).toEqual(totalAfterTax);
   });
 
   it("#taxAmount", function(){
