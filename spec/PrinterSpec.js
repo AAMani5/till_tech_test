@@ -8,4 +8,9 @@ describe("Printer", function(){
   it("#new", function () {
     expect(printer instanceof Printer).toBe(true);
   })
+
+  it("", function () {
+    expect(printer.printBill()).toEqual(cafedetails['shopName']);
+  })
+
 });
