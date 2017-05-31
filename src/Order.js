@@ -20,7 +20,12 @@
   };
 
   Order.prototype.total = function () {
-    return this._cafeDetails()['prices'][0]['Cafe Latte'] * 2;
+    var order = this;
+    var total = this.getItems().reduce(function(accumulator, item){
+      var itemTotal = order._cafeDetails()['prices'][0][item['name']] * item['quantity'];
+      return accumulator + itemTotal;
+    }, 0);
+    return total;
   };
 
   Order.prototype._cafeDetails = function () {
