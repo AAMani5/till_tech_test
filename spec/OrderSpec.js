@@ -1,11 +1,13 @@
 describe("Order", function(){
   'use strict';
-  var cafetill, janeorder;
+  var cafetill, janeorder, firstItem, tableDetails;
 
   beforeEach(function(){
+    tableDetails = {table:1, pplcount:2, pplnames:['Jane', 'John']};
+    firstItem = {quantity: 2, name: 'Cafe Latte'};
     cafetill = jasmine.createSpyObj('cafetill', ['createOrder']);
-    cafetill.createOrder.and.callFake(function() {return new Order({table:1, pplcount:2, pplnames:['Jane', 'John']});});
-    janeorder = cafetill.createOrder({table:1, pplcount:2, pplnames:['Jane', 'John']});
+    cafetill.createOrder.and.callFake(function() {return new Order(tableDetails, cafedetails);});
+    janeorder = cafetill.createOrder(tableDetails, cafedetails);
   });
 
   it("#new", function(){
@@ -16,13 +18,17 @@ describe("Order", function(){
     expect(janeorder.getItems()).toEqual([]);
   });
 
-  it("#getOrderDetails", function(){
-    expect(janeorder.getOrderDetails()).toEqual({table:1, pplcount:2, pplnames:['Jane', 'John']});
+  it("#getTableDetails", function(){
+    expect(janeorder.getTableDetails()).toEqual(tableDetails);
   });
 
   it("#addItem", function() {
-    expect(function(){janeorder.addItem({quantity: 2, name: 'Cafe Latte'})}).not.toThrow();
-    expect(janeorder.getItems()).toEqual([{quantity: 2, name: 'Cafe Latte'}]);
+    expect(function(){janeorder.addItem(firstItem)}).not.toThrow();
+    expect(janeorder.getItems()).toEqual([firstItem]);
+  });
+
+  it("#total", function(){
+    expect(janeorder.total()).toEqual(cafedetails['prices'][0][firstItem['name']] * firstItem['quantity']);
   });
 
 });
