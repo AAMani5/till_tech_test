@@ -34,6 +34,10 @@
     return taxamount;
   };
 
+  Order.prototype.totalAfterTax = function () {
+    return this.totalBeforeTax() + this.taxAmount();
+  };
+
   Order.prototype._cafeDetails = function () {
     return this.cafedetails;
   };
