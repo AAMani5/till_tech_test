@@ -1,10 +1,11 @@
 describe("Feature Tests", function(){
   'use strict';
 
-  var cafetill, janeorder, orderItem, totalBeforeTax, totalAfterTax, taxpercent;
+  var cafetill, printer, janeorder, orderItem, totalBeforeTax, totalAfterTax, taxpercent;
 
   beforeEach(function(){
-    cafetill = new CafeTill(cafedetails, Order);
+    printer = new Printer(cafedetails);
+    cafetill = new CafeTill(cafedetails, Order, printer);
     orderItem = {quantity: 2, name: 'Cafe Latte'};
     taxpercent = 8.64;
     totalBeforeTax = (cafedetails['prices'][0][orderItem['name']] * orderItem['quantity']);
@@ -17,6 +18,7 @@ describe("Feature Tests", function(){
     expect(function(){janeorder.addItem(orderItem)}).not.toThrow();
     expect(janeorder.totalBeforeTax()).toEqual(totalBeforeTax);
     expect(janeorder.totalAfterTax()).toEqual(totalAfterTax);
+    expect(cafetill.printBill()).toEqual(cafedetails['shopName']);
   });
 
 });
