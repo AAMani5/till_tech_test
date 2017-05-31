@@ -1,9 +1,10 @@
 (function(exports){
   'use strict';
 
-  function Order(orderDetails){
+  function Order(tableDetails, cafedetails){
+    this.cafedetails = cafedetails;
     this.items = [];
-    this.orderDetails = orderDetails;
+    this.tableDetails = tableDetails;
   }
 
   Order.prototype.addItem = function (itemdetails) {
@@ -14,8 +15,16 @@
     return this.items;
   };
 
-  Order.prototype.getOrderDetails = function () {
-    return this.orderDetails;
+  Order.prototype.getTableDetails = function () {
+    return this.tableDetails;
+  };
+
+  Order.prototype.total = function () {
+    return this._cafeDetails()['prices'][0]['Cafe Latte'] * 2;
+  };
+
+  Order.prototype._cafeDetails = function () {
+    return this.cafedetails;
   };
 
   exports.Order = Order;
