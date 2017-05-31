@@ -1,9 +1,10 @@
 (function(exports){
   'use strict';
 
-  function Order(tableDetails, cafedetails){
+  function Order(tableDetails, cafedetails, taxpercent = 8.64){
     this.cafedetails = cafedetails;
     this.items = [];
+    this.taxpercent = taxpercent;
     this.tableDetails = tableDetails;
   }
 
@@ -19,13 +20,18 @@
     return this.tableDetails;
   };
 
-  Order.prototype.total = function () {
+  Order.prototype.totalBeforeTax = function () {
     var order = this;
     var total = this.getItems().reduce(function(accumulator, item){
       var itemTotal = order._cafeDetails()['prices'][0][item['name']] * item['quantity'];
       return accumulator + itemTotal;
     }, 0);
     return total;
+  };
+
+  Order.prototype.taxAmount = function () {
+    var taxamount = Math.round(this.taxpercent * this.totalBeforeTax())/100;
+    return taxamount;
   };
 
   Order.prototype._cafeDetails = function () {
