@@ -7,7 +7,11 @@
   }
 
   CafeTill.prototype.createOrder = function (tabledetails) {
-    return new this.order_class(tabledetails);
+    return new this.order_class(tabledetails, this._cafeDetails());
+  };
+
+  CafeTill.prototype._cafeDetails = function () {
+    return this.cafedetails;
   };
 
   exports.CafeTill = CafeTill;
