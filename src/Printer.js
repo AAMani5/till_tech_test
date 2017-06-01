@@ -10,7 +10,15 @@
   };
 
   Printer.prototype._headerData = function () {
-    return this._dateTime() + " " + this._cafeName()
+    var firstPart = [this._dateTime(), this._cafeName()]
+    var secondPart = this._contactInfo();
+    firstPart.push.apply(firstPart, secondPart);
+    return firstPart.join("\n")
+  };
+
+  Printer.prototype._contactInfo = function () {
+    var contact = [this._cafeDetails()['address'], this._cafeDetails()['phone']]
+    return contact;
   };
 
   Printer.prototype._cafeName = function () {
