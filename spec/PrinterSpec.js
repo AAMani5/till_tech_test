@@ -11,8 +11,8 @@ describe("Printer", function(){
     expect(printer instanceof Printer).toBe(true);
   })
 
-  it("", function () {
-    expect(printer.printBill()).toEqual(dateTime + " " + cafedetails['shopName']);
+  it("#printBill", function () {
+    expect(printer.printBill()).toEqual(dateTime + "\n" + cafedetails['shopName'] + "\n" + cafedetails['address'] + "\n" + cafedetails['phone']);
   })
 
 });
