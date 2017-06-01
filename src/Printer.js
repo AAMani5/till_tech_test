@@ -6,7 +6,11 @@
   }
 
   Printer.prototype.printBill = function () {
-    return this._dateTime() + " " + this._cafeName();
+    return this._headerData();
+  };
+
+  Printer.prototype._headerData = function () {
+    return this._dateTime() + " " + this._cafeName()
   };
 
   Printer.prototype._cafeName = function () {
