@@ -18,7 +18,7 @@ describe("Feature Tests", function(){
     expect(function(){janeorder.addItem(orderItem)}).not.toThrow();
     expect(janeorder.totalBeforeTax()).toEqual(totalBeforeTax);
     expect(janeorder.totalAfterTax()).toEqual(totalAfterTax);
-    expect(cafetill.printBill()).toEqual(cafedetails['shopName']);
+    // expect(cafetill.printBill()).toEqual(cafedetails['shopName']);
   });
 
 });
