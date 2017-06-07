@@ -5,8 +5,8 @@
     this.cafedetails = cafedetails
   }
 
-  Printer.prototype.printBill = function () {
-    return this._headerData();
+  Printer.prototype.printBill = function (order) {
+    return this._headerData() + "\n" + this._footer(order);
   };
 
   Printer.prototype._headerData = function () {
@@ -30,6 +30,13 @@
     var dateOnBill = date.getFullYear() + "." + date.getMonth() + "." + date.getDate();
     var timeOnBill = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     return dateOnBill + " " + timeOnBill;
+  };
+
+  Printer.prototype._footer = function (order) {
+    var totalBeforeTax = "Total\t£" + order.totalBeforeTax();
+    var totalAfterTax = "To Pay\t£" + order.totalAfterTax();
+    var tax = "Tax\t£" + order.taxAmount();
+    return [totalBeforeTax, tax, totalAfterTax, "Thank You"].join("\n");
   };
 
   Printer.prototype._cafeDetails = function () {
