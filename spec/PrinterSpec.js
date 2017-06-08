@@ -8,6 +8,7 @@ describe("Printer", function(){
     date = new Date;
     dateTime = date.getFullYear() + "." + date.getMonth() + "." + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     header = dateTime + "\n" + cafedetails['shopName'] + "\n" + cafedetails['address'] + "\n" + cafedetails['phone'];
+    tableDetailsOnBill = `Table: ${tableDetails['table']} / [${tableDetails['pplcount']}]\n${tableDetails['pplnames'].join(",")}`
     footer = "Total\t£9.5\nTax\t£0.82\nTo Pay\t£10.32\nThank You"
     order = jasmine.createSpyObj('order', ['totalBeforeTax', 'totalAfterTax', 'taxAmount', 'getTableDetails', 'getItems']);
     order.getItems.and.callFake(function() {return [item1, item2];});
@@ -23,7 +24,7 @@ describe("Printer", function(){
   })
 
   it("#printBill - header", function () {
-    expect(printer.printBill(order)).toEqual(header + "\n" + footer);
+    expect(printer.printBill(order, tableDetails)).toEqual(header + "\n" + tableDetailsOnBill + "\n" + footer);
   })
 
 });
