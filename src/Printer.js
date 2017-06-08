@@ -6,7 +6,18 @@
   }
 
   Printer.prototype.printBill = function (order, tableDetails) {
-    return this._headerData() + "\n" + this._tableInfo(tableDetails) +"\n" + this._footer(order);
+    return this._headerData() + "\n" + this._tableInfo(tableDetails) +"\n" + this._orderDetails(order)+ "\n" + this._footer(order);
+  };
+
+  Printer.prototype._orderDetails = function (order) {
+    var allItems = this._eachItemToString(order.getItems(), this._cafeDetails())
+    return allItems.join("\n")
+  };
+
+  Printer.prototype._eachItemToString = function (orderList, cafedetails) {
+    return orderList.map(function(item){
+      return `${item['name']}\t${item['quantity']} x ${cafedetails['prices'][0][item['name']]}`
+    });
   };
 
   Printer.prototype._tableInfo = function (tableDetails) {
