@@ -2,11 +2,15 @@
   'use strict';
 
   function Printer (cafedetails) {
-    this.cafedetails = cafedetails
+    this.cafedetails = cafedetails;
   }
 
-  Printer.prototype.printBill = function (order) {
-    return this._headerData() + "\n" + this._footer(order);
+  Printer.prototype.printBill = function (order, tableDetails) {
+    return this._headerData() + "\n" + this._tableInfo(tableDetails) +"\n" + this._footer(order);
+  };
+
+  Printer.prototype._tableInfo = function (tableDetails) {
+    return `Table: ${tableDetails['table']} / [${tableDetails['pplcount']}]\n${tableDetails['pplnames'].join(",")}`;
   };
 
   Printer.prototype._headerData = function () {
