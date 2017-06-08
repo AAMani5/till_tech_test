@@ -1,9 +1,12 @@
 describe("Printer", function(){
-  var printer, date, dateTime, header, footer, order, item1, item2, tableDetails;
+  var printer, date, dateTime, header, footer, order, item1, item2, tableDetails, item1DetailsOnBill, item2DetailsOnBill, orderDetailsOnBill;
 
   beforeEach(function(){
     item1 = {quantity: 2, name: 'Cafe Latte'};
     item2 = {quantity: 2, name: 'Flat White'}
+    item1DetailsOnBill = `${item1['name']}\t${item1['quantity']} x ${cafedetails['prices'][0][item1['name']]}`
+    item2DetailsOnBill = `${item2['name']}\t${item2['quantity']} x ${cafedetails['prices'][0][item2['name']]}`
+    orderDetailsOnBill = item1DetailsOnBill + "\n" + item2DetailsOnBill;
     tableDetails = {table:1, pplcount:2, pplnames:['Jane', 'John']};
     date = new Date;
     dateTime = date.getFullYear() + "." + date.getMonth() + "." + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -24,7 +27,7 @@ describe("Printer", function(){
   })
 
   it("#printBill - header", function () {
-    expect(printer.printBill(order, tableDetails)).toEqual(header + "\n" + tableDetailsOnBill + "\n" + footer);
+    expect(printer.printBill(order, tableDetails)).toEqual(header + "\n" + tableDetailsOnBill + "\n" +  orderDetailsOnBill + "\n" + footer);
   })
 
 });
