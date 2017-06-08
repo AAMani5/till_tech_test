@@ -1,13 +1,14 @@
 describe("Feature Tests", function(){
   'use strict';
 
-  var cafetill, printer, janeorder, orderItem, totalBeforeTax, totalAfterTax, taxpercent, tableDetails, date, dateTime, header, footer, tableDetailsOnBill;
+  var cafetill, printer, janeorder, orderItem, totalBeforeTax, totalAfterTax, taxpercent, tableDetails, date, dateTime, header, footer, tableDetailsOnBill, orderDetailsOnBill;
 
   beforeEach(function(){
     printer = new Printer(cafedetails);
     cafetill = new CafeTill(cafedetails, Order, printer);
     tableDetails = {table:1, pplcount:2, pplnames:['Jane', 'John']};
     orderItem = {quantity: 2, name: 'Cafe Latte'};
+    orderDetailsOnBill = `${orderItem['name']}\t${orderItem['quantity']} x ${cafedetails['prices'][0][orderItem['name']]}`
     taxpercent = 8.64;
     totalBeforeTax = (cafedetails['prices'][0][orderItem['name']] * orderItem['quantity']);
     totalAfterTax = Math.round(108.64 * totalBeforeTax)/100;
@@ -24,7 +25,7 @@ describe("Feature Tests", function(){
     expect(function(){janeorder.addItem(orderItem)}).not.toThrow();
     expect(janeorder.totalBeforeTax()).toEqual(totalBeforeTax);
     expect(janeorder.totalAfterTax()).toEqual(totalAfterTax);
-    expect(cafetill.printBill()).toEqual(header + "\n" + tableDetailsOnBill + "\n" + footer);
+    expect(cafetill.printBill()).toEqual(header + "\n" + tableDetailsOnBill + "\n" + orderDetailsOnBill+ "\n"+ footer);
   });
 
 });
