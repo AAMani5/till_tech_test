@@ -8,11 +8,21 @@
   }
 
   CafeTill.prototype.createOrder = function (tabledetails) {
-    return new this.order_class(tabledetails, this._cafeDetails());
+    this.tableDetails = tabledetails;
+    this.order = new this.order_class(this._tableDetails(), this._cafeDetails());
+    return this._order();
   };
 
   CafeTill.prototype.printBill = function () {
-    return this._printer().printBill();
+    return this._printer().printBill(this._order(), this._tableDetails());
+  };
+
+  CafeTill.prototype._order = function () {
+    return this.order;
+  };
+
+  CafeTill.prototype._tableDetails = function () {
+    return this.tableDetails;
   };
 
   CafeTill.prototype._cafeDetails = function () {
