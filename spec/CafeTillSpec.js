@@ -1,11 +1,12 @@
 describe("CafeTill", function(){
   'use strict';
 
-  var cafetill, myorder, printer;
+  var cafetill, myorder, printer, tableDetails;
 
   beforeEach(function(){
     printer = jasmine.createSpyObj('printer', ['printBill']);
     printer.printBill.and.callFake(function() {return cafedetails['shopName'];});
+    tableDetails = {table:1, pplcount:2, pplnames:['Jane', 'John']}
     cafetill = new CafeTill(cafedetails, Order, printer)
   });
 
@@ -14,7 +15,7 @@ describe("CafeTill", function(){
   });
 
   it("#createOrder", function(){
-    myorder = cafetill.createOrder({table:1, pplcount:2, pplnames:['Jane', 'John']})
+    myorder = cafetill.createOrder(tableDetails)
     expect(myorder instanceof Order).toBe(true);
   });
 
